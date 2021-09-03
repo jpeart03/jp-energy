@@ -44,7 +44,7 @@ const AppNav = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky">
+      <AppBar position="sticky" color="transparent">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Lightsource
