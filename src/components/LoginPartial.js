@@ -1,14 +1,14 @@
 import { Button, CircularProgress } from "@material-ui/core";
 
-const AuthTest = ({ user, loading, handleLogIn, handleLogOut }) => {
+const LoginPartial = ({ user, loading, handleLogIn, handleLogOut }) => {
   if (loading) {
-    return <CircularProgress color="secondary" />;
+    return <CircularProgress color="secondary" size="1.5rem" />;
   } else {
     return (
       <>
         {user ? (
           <>
-            <span>{user.email}</span>
+            <span style={{ marginRight: "1rem" }}>{user.email}</span>
             <Button color="inherit" onClick={handleLogOut}>
               Log out
             </Button>
@@ -23,4 +23,4 @@ const AuthTest = ({ user, loading, handleLogIn, handleLogOut }) => {
   }
 };
 
-export default AuthTest;
+export default LoginPartial;
