@@ -16,7 +16,7 @@ const getUSStateAbbr = async () => {
     });
 };
 
-const getElecRetailPrice = async (stateAbbr) => {
+const getElectricityRetailPrice = async (stateAbbr) => {
     const series = `ELEC.PRICE.${stateAbbr}-RES.A`;
     const apiKey = API_KEY;
     const response = await axios.get(baseUri, {
@@ -28,4 +28,4 @@ const getElecRetailPrice = async (stateAbbr) => {
     return response;
 };
 
-export { getUSStateAbbr, getElecRetailPrice };
+export { getUSStateAbbr, getElectricityRetailPrice };
