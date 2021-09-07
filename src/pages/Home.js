@@ -1,10 +1,11 @@
-import { Container, Typography, Button } from "@material-ui/core";
-import { useEffect } from "react";
+import { Container, Typography } from "@material-ui/core";
 import { StatesComboBox } from "../components/StatesComboBox";
 
 import "./Home.scss";
 
 const Home = () => {
+  const handleGetData = () => {};
+
   return (
     <Container className="home" maxWidth="md">
       {/* Make this a hero component*/}
@@ -18,7 +19,7 @@ const Home = () => {
       <Typography variant="h6" component="p">
         Lightsource can help you find out. Use the form below to get started:
       </Typography>
-      <StatesComboBox />
+      <StatesComboBox onGetData={handleGetData} />
     </Container>
   );
 };
