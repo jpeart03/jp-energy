@@ -36,7 +36,7 @@ export const ElectricityPriceChart = ({ stateAbbr }) => {
     return (
         <>
             {electricityRetailPrice.length > 0 && (
-                <Card>
+                <Card className="chart-card">
                     <CardContent>
                         <Typography variant="h4">{`${stateAbbr}: average electricity price`}</Typography>
                         <ResponsiveContainer width="100%" height={300}>
