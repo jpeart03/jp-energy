@@ -19,11 +19,11 @@ const Home = () => {
             </Typography>
             <Typography variant="h6" component="p">
                 No - this isn't a super-hero site, but do you know what powers
-                your home state?
+                your home state? Lightsource can help you discover the sources
+                of your electricity and how much it costs!
             </Typography>
             <Typography variant="h6" component="p">
-                Lightsource can help you find out. Use the form below to get
-                started:
+                Use the form below to get started:
             </Typography>
             <StatesComboBox onGetEnergyData={onGetEnergyData} />
             <Charts stateAbbr={stateAbbr} />

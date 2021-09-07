@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getElectricityRetailPrice } from "../api/eia";
+import { getEnergyProduction } from "../api/eia";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import {
     LineChart,
@@ -11,18 +11,18 @@ import {
     ResponsiveContainer,
 } from "recharts";
 
-export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
-    const [electricityRetailPrice, setElectricityRetailPrice] = useState([]);
-    const [errorMessage, setErrorMessage] = useState("");
+export const EnergyProductionChart = ({ stateAbbr, chartTitle }) => {
+    const [energyProduction, setEnergyProduction] = useState([]);
+    const [errorMessage, setErrorMessage] = useState([]);
 
     useEffect(() => {
         const getChartData = async () => {
-            const price = await getElectricityRetailPrice(stateAbbr);
-            if (price.error) {
-                setElectricityRetailPrice([]);
-                setErrorMessage(price.error);
+            const production = await getEnergyProduction(stateAbbr);
+            if (production.error) {
+                setEnergyProduction([]);
+                setErrorMessage(production.error);
             } else {
-                setElectricityRetailPrice(price);
+                setEnergyProduction(production);
                 setErrorMessage("");
             }
         };
@@ -30,10 +30,10 @@ export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
             getChartData();
         }
     }, [stateAbbr]);
-
+    // TODO CHANGE TO AREA CHART W/ LINEAR GRADIENT
     return (
         <>
-            {(electricityRetailPrice.length > 0 || errorMessage) && (
+            {(energyProduction.length > 0 || errorMessage) && (
                 <Card className="chart-card">
                     {errorMessage ? (
                         <CardContent>
@@ -51,11 +51,11 @@ export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
                             </Typography>
                             <ResponsiveContainer width="100%" height={300}>
                                 <LineChart
-                                    data={electricityRetailPrice}
+                                    data={energyProduction}
                                     margin={{
                                         top: 10,
                                         right: 30,
-                                        left: 0,
+                                        left: 30,
                                         bottom: 5,
                                     }}
                                 >
@@ -72,8 +72,13 @@ export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
                                     <Tooltip />
                                     <Line
                                         type="monotone"
-                                        dataKey="price"
+                                        dataKey="totalEnergyProd"
                                         stroke="#2196f3"
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="renewableEnergyProd"
+                                        stroke="#4caf50"
                                     />
                                 </LineChart>
                             </ResponsiveContainer>

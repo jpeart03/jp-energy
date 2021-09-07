@@ -25,7 +25,58 @@ const getElectricityRetailPrice = async (stateAbbr) => {
             series_id: series,
         },
     });
-    return response;
+
+    if (response.data.data) {
+        return { error: "Unable to retrieve data" };
+    }
+
+    const rawData = response.data.series[0].data;
+    const mappedData = rawData.map((element) => {
+        return { year: element[0], price: element[1] };
+    });
+
+    return mappedData;
 };
 
-export { getUSStateAbbr, getElectricityRetailPrice };
+const getEnergyProduction = async (stateAbbr) => {
+    const totalProdSeries = `SEDS.TEPRB.${stateAbbr}.A`;
+    const renewableProdSeries = `SEDS.NCPRB.${stateAbbr}.A`;
+    const apiKey = API_KEY;
+
+    const totalProdResponse = await axios.get(baseUri, {
+        params: {
+            api_key: apiKey,
+            series_id: totalProdSeries,
+        },
+    });
+
+    const renewableProdResponse = await axios.get(baseUri, {
+        params: {
+            api_key: apiKey,
+            series_id: renewableProdSeries,
+        },
+    });
+
+    if (totalProdResponse.data.data || renewableProdResponse.data.data) {
+        return { error: "Unable to retrieve data." };
+    }
+
+    const rawTotalData = totalProdResponse.data.series[0].data;
+    const rawRenewableData = renewableProdResponse.data.series[0].data;
+
+    const mappedData = rawTotalData
+        .map((totalEl) => {
+            return {
+                year: totalEl[0],
+                totalEnergyProd: totalEl[1],
+                renewableEnergyProd: rawRenewableData.find(
+                    (renewEl) => renewEl[0] == totalEl[0]
+                )[1],
+            };
+        })
+        .slice(0, 20);
+
+    return mappedData;
+};
+
+export { getUSStateAbbr, getElectricityRetailPrice, getEnergyProduction };
