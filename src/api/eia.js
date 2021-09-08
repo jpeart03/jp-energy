@@ -2,7 +2,7 @@ import axios from "axios";
 import Papa from "papaparse";
 import usStates from "../data/us-states.csv";
 
-const baseUri = "http://api.eia.gov/series/";
+const baseUri = "https://api.eia.gov/series/";
 const API_KEY = process.env.REACT_APP_EIA_API_KEY;
 
 // Gets US States from static csv file
