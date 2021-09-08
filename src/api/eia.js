@@ -3,8 +3,7 @@ import Papa from "papaparse";
 import usStates from "../data/us-states.csv";
 
 const baseUri = "https://api.eia.gov/series/";
-const apiKey = process.env.REACT_APP_EIA_API_KEY;
-
+const apiKey = "af02e509d6107011be422bd9a37458fd"; // readonly API key. Not concerned with exposing.
 // Gets US States from static csv file
 const getUSStateAbbr = async () => {
     return new Promise((resolve, reject) => {
