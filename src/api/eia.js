@@ -28,6 +28,8 @@ const getElectricityRetailPrice = async (stateAbbr) => {
         },
     });
 
+    console.log(response);
+
     if (response.data.data) {
         return { error: "Unable to retrieve data" };
     }
