@@ -3,7 +3,7 @@ import Papa from "papaparse";
 import usStates from "../data/us-states.csv";
 
 const baseUri = "https://api.eia.gov/series/";
-const API_KEY = process.env.REACT_APP_EIA_API_KEY;
+const apiKey = process.env.REACT_APP_EIA_API_KEY;
 
 // Gets US States from static csv file
 const getUSStateAbbr = async () => {
@@ -20,7 +20,6 @@ const getUSStateAbbr = async () => {
 // Gets electricity retail prices from eia government api
 const getElectricityRetailPrice = async (stateAbbr) => {
     const series = `ELEC.PRICE.${stateAbbr}-RES.A`;
-    const apiKey = API_KEY;
     const response = await axios.get(baseUri, {
         params: {
             api_key: apiKey,
@@ -46,7 +45,6 @@ const getElectricityRetailPrice = async (stateAbbr) => {
 const getEnergyProduction = async (stateAbbr) => {
     const totalProdSeries = `SEDS.TEPRB.${stateAbbr}.A`;
     const renewableProdSeries = `SEDS.NCPRB.${stateAbbr}.A`;
-    const apiKey = API_KEY;
 
     const totalProdResponse = await axios.get(baseUri, {
         params: {
@@ -87,7 +85,6 @@ const getEnergyProduction = async (stateAbbr) => {
 // Gets CO2 production from eia government api
 const getCO2Production = async (stateAbbr) => {
     const series = `EMISS.CO2-TOTV-EC-TO-${stateAbbr}.A`;
-    const apiKey = API_KEY;
 
     const response = await axios.get(baseUri, {
         params: {
