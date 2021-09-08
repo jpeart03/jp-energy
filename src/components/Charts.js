@@ -3,9 +3,9 @@ import { EnergyProductionChart } from "./EnergyProductionChart";
 import { CO2ProductionChart } from "./CO2ProductionChart";
 import "./Charts.scss";
 
-export const Charts = ({ stateAbbr }) => {
+export const Charts = ({ stateAbbr, style }) => {
   return (
-    <section className="charts">
+    <section className="charts" style={style}>
       <ElectricityPriceChart
         stateAbbr={stateAbbr}
         chartTitle="Avg retail cost of electricity (cents per kwh)"

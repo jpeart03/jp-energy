@@ -70,7 +70,7 @@ const getEnergyProduction = async (stateAbbr) => {
         year: totalEl[0],
         totalEnergyProd: totalEl[1],
         renewableEnergyProd: rawRenewableData.find(
-          (renewEl) => renewEl[0] == totalEl[0]
+          (renewEl) => renewEl[0] === totalEl[0]
         )[1],
       };
     })

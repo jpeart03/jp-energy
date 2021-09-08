@@ -7,9 +7,12 @@ import { Charts } from "../components/Charts";
 import "./Home.scss";
 
 const Home = () => {
-  const [stateAbbr, setStateAbbr] = useState("");
-  const onGetEnergyData = (selectedStateAbbr) => {
-    setStateAbbr(selectedStateAbbr);
+  const defaultState = { name: "", abbr: "" };
+  const [USState, setUSState] = useState(defaultState);
+
+  const handleSelect = (selectedState) => {
+    if (selectedState) setUSState(selectedState);
+    else setUSState(defaultState);
   };
 
   return (
@@ -23,10 +26,10 @@ const Home = () => {
         electricity and how much it costs!
       </Typography>
       <Typography variant="h6" component="p">
-        Use the form below to get started:
+        Select a state to get started
       </Typography>
-      <StatesComboBox onGetEnergyData={onGetEnergyData} />
-      <Charts stateAbbr={stateAbbr} />
+      <StatesComboBox onSelectState={handleSelect} />
+      <Charts stateAbbr={USState.abbr} />
     </Container>
   );
 };
