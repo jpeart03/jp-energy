@@ -11,9 +11,8 @@ import { useAuth } from "../contexts/AuthContext";
 
 const LoginPartial = () => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const { authLoading, currentUser, login, logout } = useAuth();
     const open = Boolean(anchorEl);
-    const { login, logout, currentUser } = useAuth();
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -24,27 +23,23 @@ const LoginPartial = () => {
     };
 
     const handleLogIn = async () => {
-        setLoading(true);
         try {
             await login();
         } catch (error) {
             console.log(error);
         }
-        setLoading(false);
     };
 
     const handleLogOut = async () => {
-        setLoading(true);
         try {
             await logout();
         } catch (error) {
             console.log(error);
         }
-        setLoading(false);
     };
 
-    if (loading) {
-        return <CircularProgress color="secondary" size="1.5rem" />;
+    if (authLoading) {
+        return <CircularProgress color="primary" size="1.5rem" />;
     } else {
         return (
             <>
