@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getElectricityRetailPrice } from "../api/eia";
+import { getCO2Production } from "../api/eia";
 import { Card, CardContent, Typography, Link } from "@material-ui/core";
 import {
   LineChart,
@@ -11,18 +11,18 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
-  const [electricityRetailPrice, setElectricityRetailPrice] = useState([]);
+export const CO2ProductionChart = ({ stateAbbr, chartTitle }) => {
+  const [CO2Production, setCO2Production] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const getChartData = async () => {
-      const price = await getElectricityRetailPrice(stateAbbr);
-      if (price.error) {
-        setElectricityRetailPrice([]);
-        setErrorMessage(price.error);
+      const co2 = await getCO2Production(stateAbbr);
+      if (co2.error) {
+        setCO2Production([]);
+        setErrorMessage(co2.error);
       } else {
-        setElectricityRetailPrice(price);
+        setCO2Production(co2);
         setErrorMessage("");
       }
     };
@@ -33,7 +33,7 @@ export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
 
   return (
     <>
-      {(electricityRetailPrice.length > 0 || errorMessage) && (
+      {(CO2Production.length > 0 || errorMessage) && (
         <Card className="chart-card">
           {errorMessage ? (
             <CardContent>
@@ -48,7 +48,7 @@ export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
               </Typography>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart
-                  data={electricityRetailPrice}
+                  data={CO2Production}
                   margin={{
                     top: 10,
                     right: 30,
@@ -69,12 +69,12 @@ export const ElectricityPriceChart = ({ stateAbbr, chartTitle }) => {
                   <Tooltip
                     formatter={(value, name, props) => [
                       value,
-                      name[0].toUpperCase() + name.slice(1).toLowerCase(),
+                      name.toUpperCase(),
                     ]}
                   />
                   <Line
                     type="monotone"
-                    dataKey="price"
+                    dataKey="co2"
                     stroke="#2196f3"
                     dot={false}
                   />
