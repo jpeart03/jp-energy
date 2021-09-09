@@ -1,0 +1,11 @@
+.nav {
+  flex-grow: 1;
+
+  &-link {
+    flex-grow: 1;
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
