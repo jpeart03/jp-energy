@@ -1,6 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { Breadcrumbs, Container, Typography, Link } from "@material-ui/core";
 import "./Compare.scss";
+import { CompareElectricityPriceChart } from "../components/CompareElectricityPriceChart";
+import { ElectricityPriceChart } from "../components/ElectricityPriceChart";
 
 const Compare = () => {
   const history = useHistory();
@@ -9,6 +11,7 @@ const Compare = () => {
     event.preventDefault();
     history.push("/");
   };
+  const states = ["IL", "OH", "IN"];
 
   return (
     <Container className="compare" maxWidth="md">
@@ -22,6 +25,11 @@ const Compare = () => {
         State Comparison
       </Typography>
       {/** TODO: Add state picker & line graph */}
+      <ElectricityPriceChart stateAbbr="IL" chartTitle="TEST" />
+      <CompareElectricityPriceChart
+        stateAbbr={states.join()}
+        chartTitle="TEST COMPARE"
+      />
     </Container>
   );
 };

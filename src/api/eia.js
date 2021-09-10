@@ -104,9 +104,33 @@ const getCO2Production = async (stateAbbr) => {
   return mappedData;
 };
 
+// Gets electricity retail prices for array of state abbrs from eia government api
+const getElectricityRetailPrices = async (stateAbbr) => {
+  const firstAbbr = stateAbbr.split(",")[0];
+  const series = `ELEC.PRICE.${firstAbbr}-RES.A`;
+  const response = await axios.get(baseUri, {
+    params: {
+      api_key: apiKey,
+      series_id: series,
+    },
+  });
+
+  if (response.data.data) {
+    return { error: "Unable to retrieve data" };
+  }
+
+  const rawData = response.data.series[0].data;
+  const mappedData = rawData.map((element) => {
+    return { year: element[0], price: element[1] };
+  });
+
+  return mappedData;
+};
+
 export {
   getUSStateAbbr,
   getElectricityRetailPrice,
   getEnergyProduction,
   getCO2Production,
+  getElectricityRetailPrices,
 };
