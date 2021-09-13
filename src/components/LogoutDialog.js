@@ -28,7 +28,7 @@ const LogoutDialog = ({ open, onClose, onLogout }) => {
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          You must be logged in to use the "Compare States" feature.
+          You must be logged in to manage your "Power Profile".
         </DialogContentText>
       </DialogContent>
       <DialogActions>
