@@ -1,8 +1,15 @@
 .nav {
   flex-grow: 1;
 
-  &-link {
+  &-brand {
     flex-grow: 1;
+    svg {
+      margin-right: 0.5rem;
+      transform: translateY(20%);
+    }
+    h6 {
+      display: inline-block;
+    }
     a {
       color: #fff;
       text-decoration: none;
