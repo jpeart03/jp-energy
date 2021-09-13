@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/Home";
-import Compare from "../pages/Compare";
+import Profile from "../pages/Profile";
 import AppNav from "./AppNav";
 import NotFound from "./NotFound";
 
@@ -11,7 +11,7 @@ const Routes = () => {
       <AppNav />
       <Switch>
         <Route exact path="/" component={Home} />
-        <ProtectedRoute exact path="/compare" component={Compare} />
+        <ProtectedRoute exact path="/profile" component={Profile} />
         {/* NotFound for invalid routes */}
         <Route component={NotFound} />
       </Switch>
