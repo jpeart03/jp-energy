@@ -5,7 +5,7 @@ import { getUSStateAbbr } from "../api/eia";
 
 import "./StatesComboBox.scss";
 
-export const StatesComboBox = ({ onSelectState }) => {
+export const StatesComboBox = ({ value, onSelectState, labelText }) => {
   const [statesList, setStatesList] = useState([]);
 
   useEffect(() => {
@@ -25,12 +25,13 @@ export const StatesComboBox = ({ onSelectState }) => {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Select a state"
+          label={labelText}
           margin="normal"
           variant="outlined"
         />
       )}
       onChange={(_, value) => onSelectState(value)}
+      value={value}
       // override b/c using object as option
       getOptionSelected={(option, value) => option.abbr === value.abbr}
     />

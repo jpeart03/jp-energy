@@ -1,9 +1,14 @@
 .home {
-    margin: 7rem 0;
-    p {
-        margin: 1rem 0;
-    }
-    button {
-        margin-top: 1rem;
-    }
+  margin: 7rem 0;
+  p {
+    margin: 1rem 0;
+  }
+  button {
+    margin-top: 1rem;
+  }
+  // fixing bad MUI styles from lab component
+  .MuiAutocomplete-endAdornment {
+    right: 0.5rem !important;
+    top: 0 !important;
+  }
 }
