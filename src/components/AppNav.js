@@ -1,31 +1,21 @@
+import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core";
 import LoginPartial from "./LoginPartial";
-
-const useStyles = makeStyles(() => ({
-    root: {
-        flexGrow: 1,
-    },
-    title: {
-        flexGrow: 1,
-    },
-}));
+import "./AppNav.scss";
 
 const AppNav = () => {
-    const classes = useStyles();
-
-    return (
-        <div className={classes.root}>
-            <AppBar position="fixed" color="inherit">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        Lightsource
-                    </Typography>
-                    <LoginPartial />
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
+  return (
+    <div className="nav">
+      <AppBar position="fixed" color="inherit">
+        <Toolbar className="nav">
+          <Typography variant="h6" className="nav-link">
+            <Link to="/">Lightsource</Link>
+          </Typography>
+          <LoginPartial />
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 };
 
 export default AppNav;

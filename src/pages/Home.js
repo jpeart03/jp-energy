@@ -25,7 +25,7 @@ const Home = () => {
                 your state's electricity and how much it costs!
             </Typography>
             <Typography variant="h6" component="p">
-                Select a state to get started
+                Select a state to get started.
             </Typography>
             <StatesComboBox onSelectState={handleSelect} />
             <Charts stateAbbr={USState.abbr} />
