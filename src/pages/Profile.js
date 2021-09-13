@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
 import {
@@ -16,17 +16,23 @@ import {
   Radio,
   Button,
   Box,
+  Snackbar,
 } from "@material-ui/core";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import { StatesComboBox } from "../components/StatesComboBox";
 import "./Profile.scss";
+import { Alert } from "@material-ui/lab";
 
 const Profile = () => {
-  const [defaultState, setDefaultState] = useState({ name: "", abbr: "" });
-  const [powerPreference, setPowerPreference] = useState("price");
+  const blankDefaultState = { name: "", abbr: "" };
+  const blankPowerPreference = "";
+  const [defaultState, setDefaultState] = useState(blankDefaultState);
+  const [powerPreference, setPowerPreference] = useState(blankPowerPreference);
   const [helperText, setHelperText] = useState(" ");
   const [error, setError] = useState();
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const history = useHistory();
   const { currentUser } = useAuth();
 
@@ -78,9 +84,21 @@ const Profile = () => {
       defaultState: defaultState,
       powerPreference: powerPreference,
     });
+    setToastMessage("Your Power Profile has been saved.");
+    setToastOpen(true);
   };
 
-  const handleClearProfile = (event) => {};
+  const handleClearProfile = async () => {
+    await deleteDoc(doc(db, "PowerProfile", currentUser.uid));
+    setDefaultState(blankDefaultState);
+    setPowerPreference(blankPowerPreference);
+    setToastMessage("Your Power Profile has been cleared.");
+    setToastOpen(true);
+  };
+
+  const handleToastClose = () => {
+    setToastOpen(false);
+  };
 
   return (
     <Container className="profile" maxWidth="md">
@@ -144,6 +162,16 @@ const Profile = () => {
           </ThemeProvider>
         </Box>
       </form>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={toastOpen}
+        onClose={handleToastClose}
+        autoHideDuration={6000}
+      >
+        <Alert onClose={handleToastClose} severity="success">
+          {toastMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
